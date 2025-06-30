@@ -9,11 +9,15 @@
   overflow: hidden;
   touch-action: none;
 
+  .logo{
+    width: 80px;
+  }
+
   .fixed-text{
     position: absolute;
     width: 200px;
     top: 20px;
-    left: 60%;
+    left: 61%;
     color: white;
   }
 
