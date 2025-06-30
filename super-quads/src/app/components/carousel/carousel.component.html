@@ -1,0 +1,24 @@
+<div class="main-container">
+  <div class="fixed-text">
+    <h3>Recorrido dentro de nuestro bosque privado
+      @if(selectedId !== null) {
+        <span class="selected-item">{{selectedId + 1}}</span>
+      }
+    </h3>
+  </div>
+  <div class="wheel-wrapper" #wheelWrapper>
+    <img class="llanta-img" src="./img/Llanta.png" alt="Llanta" />
+    <div class="ring">
+      @for (item of items; track item.text; let i = $index) {
+        <div class="dot" [style.--i]="i">
+          <div class="foto-frame" (click)="selectedItem(item.id)" (mouseenter)="selectedItem(item.id)">
+            <img class="cuadra-img" src="./img/foto.jpg" alt="">
+            <div class="cuadra-text">
+              <p>{{item.text}}</p>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</div>

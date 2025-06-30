@@ -1,0 +1,97 @@
+.navbar-container {
+  width: 100%;
+  background-color: #191719;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 1rem 1.5rem;
+
+  .navbar {
+    width: 70%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .navbar-left {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+
+      .logo {
+        height: 40px;
+        width: auto;
+      }
+
+      .links {
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+        font-size: 0.95rem;
+
+        .link {
+          text-decoration: none;
+          color: white;
+          font-weight: 500;
+
+          &:hover {
+            color: #ff4f3f;
+            cursor: pointer;
+          }
+        }
+
+        .link+.link::before {
+          content: "|";
+          margin: 0 0.5rem;
+          color: #ccc;
+        }
+      }
+    }
+
+    .navbar-right {
+      font-weight: 500;
+      color: #555;
+      display: flex;
+      gap: 1rem;
+
+      .whatsapp-icon,
+      .tiktok-icon,
+      .instagram-icon {
+        width: 2rem;
+        height: 2rem;
+        transition: transform 0.2s ease-in-out;
+
+        &:hover {
+            cursor: pointer;
+            transform: scale(1.2);
+        }
+      }
+
+      .booking-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background-color: #B20E00;
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 1rem;
+        text-decoration: none;
+        font-weight: 500;
+
+
+        .arrow {
+          font-size: 20px;
+        }
+
+        &:hover {
+          background-color: #ff4f3f;
+          cursor: pointer;
+
+          .arrow {
+            transform: translateX(4px);
+            transition: transform 0.4s ease-in-out, color 0.3s ease-in-out;
+          }
+        }
+      }
+
+    }
+  }
+}
