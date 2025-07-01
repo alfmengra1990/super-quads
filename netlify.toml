@@ -1,6 +1,6 @@
 [build]
   command = "cd super-quads && npm install && npm run build"
-  publish = "super-quads/dist/super-quads/browser"
+  publish = "super-quads/dist/super-quads/src"
 
 [[redirects]]
   from = "/*"
