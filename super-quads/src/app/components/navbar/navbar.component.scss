@@ -3,9 +3,11 @@
   background-color: #191719;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 1rem 1.5rem;
+  position: relative;
 
   .navbar {
     width: 70%;
+    max-width: 1200px;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
@@ -19,6 +21,7 @@
       .logo {
         height: 40px;
         width: auto;
+        flex-shrink: 0;
       }
 
       .links {
@@ -31,6 +34,8 @@
           text-decoration: none;
           color: white;
           font-weight: 500;
+          text-align: center;
+          white-space: nowrap;
 
           &:hover {
             color: #ff4f3f;
@@ -52,6 +57,12 @@
       display: flex;
       gap: 1rem;
 
+      .social-icons {
+        display: flex;
+        gap: 1rem;
+        ;
+      }
+
       .whatsapp-icon,
       .tiktok-icon,
       .instagram-icon {
@@ -60,8 +71,8 @@
         transition: transform 0.2s ease-in-out;
 
         &:hover {
-            cursor: pointer;
-            transform: scale(1.2);
+          cursor: pointer;
+          transform: scale(1.2);
         }
       }
 
@@ -75,23 +86,220 @@
         border-radius: 1rem;
         text-decoration: none;
         font-weight: 500;
-
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s;
 
         .arrow {
           font-size: 20px;
+          transition: transform 0.4s ease-in-out;
         }
 
         &:hover {
           background-color: #ff4f3f;
-          cursor: pointer;
 
           .arrow {
             transform: translateX(4px);
-            transition: transform 0.4s ease-in-out, color 0.3s ease-in-out;
           }
         }
       }
+    }
 
+    .hamburger {
+      display: none;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 2.5rem;
+      cursor: pointer;
+      padding: 0.5rem;
+      transition: all 0.3s ease;
+      position: relative;
+
+      i.fa-solid {
+        transition: all 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55); // Efecto elástico
+        display: inline-block;
+      }
+
+      .fa-bars {
+        opacity: 1;
+        transform: rotate(0deg);
+      }
+
+      .fa-xmark {
+        position: absolute;
+        opacity: 0;
+        transform: rotate(-90deg);
+        left: 0.5rem;
+        top: 0.5rem;
+      }
+
+      &.active {
+        .fa-bars {
+          opacity: 0;
+          transform: rotate(90deg);
+        }
+
+        .fa-xmark {
+          opacity: 1;
+          transform: rotate(0deg);
+        }
+      }
+    }
+  }
+
+  .mobile-menu {
+    display: none;
+    flex-direction: column;
+    background-color: #191719;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    padding: 1rem;
+    z-index: 1000;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+
+    &.open {
+      display: flex;
+    }
+
+    .mobile-link {
+      color: white;
+      padding: 1rem;
+      text-decoration: none;
+      border-bottom: 1px solid #333;
+      transition: color 0.3s;
+
+      &:hover {
+        color: #ff4f3f;
+      }
+    }
+
+    .mobile-social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      padding: 1.5rem 0;
+
+      img {
+        width: 2rem;
+        height: 2rem;
+      }
+    }
+
+    .mobile-booking-button {
+      width: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0.5rem auto 0;
+      padding: 0.75rem 1.5rem;
+      gap: 0.5rem;
+      background-color: #B20E00;
+      color: white;
+      padding: 0.75rem;
+      border-radius: 1rem;
+      border: none;
+      font-weight: 500;
+      margin-top: 0.5rem;
+      cursor: pointer;
+      transition: background-color 0.3s;
+
+      &:hover {
+        background-color: #ff4f3f;
+        transform: scale(1.05);
+      }
+    }
+  }
+}
+
+// Media Queries para Responsive
+@media (max-width: 992px) {
+
+  /* Tablets */
+  .navbar-container {
+    padding: 1rem;
+    .navbar {
+      width: 100%;
+
+      .navbar-left {
+        .links {
+          width: 180px;
+          font-size: 0.85rem;
+        }
+
+        .link {
+          flex-basis: calc(50% - 0.15rem);
+          white-space: normal;
+          padding: 0.2rem 0;
+          box-sizing: border-box;
+        }
+      }
+
+      .navbar-right {
+        gap: 0.5rem;
+
+        .social-icons {
+          gap: 0.2rem;
+        }
+
+        .booking-button {
+          padding: 0.5rem 0.8rem;
+          font-size: 0.9rem;
+        }
+      }
+
+    }
+  }
+}
+
+@media (max-width: 768px) {
+
+  /* Tablets pequeñas y móviles grandes */
+  .navbar-container {
+    padding: 1rem;
+
+    .navbar {
+      .navbar-left {
+        .links {
+          display: none;
+        }
+      }
+
+      .navbar-right {
+        .social-icons {
+          display: none;
+        }
+
+        .booking-button {
+          display: none;
+        }
+      }
+
+      .hamburger {
+        display: block;
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+
+  /* Móviles */
+  .navbar-container {
+    .navbar {
+      .navbar-left {
+        .logo {
+          height: 35px;
+        }
+      }
+
+      .booking-button {
+        padding: 0.4rem 0.7rem;
+        font-size: 0.8rem;
+      }
     }
   }
 }

@@ -8,12 +8,13 @@
   background-color: #111;
   overflow: hidden;
   touch-action: none;
+  padding: 1rem;
 
-  .logo{
+  .logo {
     width: 80px;
   }
 
-  .fixed-text{
+  .fixed-text {
     position: absolute;
     width: 200px;
     top: 20px;
@@ -87,12 +88,21 @@
       z-index 0s 0.5s;
     z-index: 2;
     will-change: transform;
+    touch-action: manipulation;
 
-    &:hover {
+    &:hover:not(.touch-active),
+    &.active:not(.touch-active) {
       transform:
         translateY(-60%) rotate(90deg) scale(1.8);
       z-index: 10;
       box-shadow: 0 0 15px rgba(143, 143, 143, 0.2), 0 0 25px rgba(143, 143, 143, 0.4);
+    }
+
+    &.touch-active {
+      transform: translateY(-60%) rotate(90deg) scale(1.8);
+      z-index: 10;
+      box-shadow: 0 0 15px rgba(143, 143, 143, 0.2), 0 0 25px rgba(143, 143, 143, 0.4);
+      transition: all 0.2s ease-out;
     }
   }
 
@@ -107,5 +117,64 @@
     width: 90%;
     height: auto;
     border-radius: 0.2rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .main-container {
+    height: 500px;
+
+    .foto-frame {
+      &:hover:not(.touch-active),
+      &.touch-active,
+      &.active:not(.touch-active) {
+        transform: translateY(-60%) rotate(90deg) scale(1.5);
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .main-container {
+    height: 450px;
+
+    .wheel-wrapper {
+      width: 300px;
+      height: 300px;
+      transform: translateY(85%) rotate(-39deg);
+    }
+
+    .llanta-img {
+      width: 300px;
+      height: 300px;
+    }
+
+    .foto-frame {
+      &:hover:not(.touch-active),
+      &.touch-active,
+      &.active:not(.touch-active) {
+        transform: translateY(-60%) rotate(90deg) scale(1.3);
+      }
+    }
+
+    .ring {
+      width: 350px;
+      height: 350px;
+
+      .dot {
+        top: 50%;
+        left: 50%;
+        transform:
+          rotate(calc(var(--i) * 51.428deg)) translateX(174px);
+        transform-origin: left center;
+      }
+    }
+
+    .fixed-text {
+      width: 130px;
+      font-size: 0.7rem;
+      left: 50%;
+      top: 10px;
+    }
   }
 }

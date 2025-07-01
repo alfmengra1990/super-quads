@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, ElementRef, ViewChild, AfterViewInit, Renderer2 } from '@angular/core';
 
 @Component({
   selector: 'app-carousel',
@@ -10,6 +10,7 @@ import { Component, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 export class CarouselComponent implements AfterViewInit {
   @ViewChild('wheelWrapper') wheelWrapper!: ElementRef;
 
+  private isTouchDevice = false;
   private isDragging = false;
   private startAngle = 0;
   private currentAngle = -39;
@@ -27,7 +28,12 @@ export class CarouselComponent implements AfterViewInit {
 
   selectedId: number = 6;
 
+  constructor(private renderer: Renderer2) { }
+
   ngAfterViewInit() {
+    this.isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    const initialTranslateY = this.getTranslateYPercentage();
+    this.wheelWrapper.nativeElement.style.transform = `translateY(${initialTranslateY}%) rotate(-39deg)`;
     this.setupDragEvents();
   }
 
@@ -68,6 +74,10 @@ export class CarouselComponent implements AfterViewInit {
     this.startAngle = Math.atan2(this.getClientX(e) - center.x, center.y - rect.top) * (180 / Math.PI);
   }
 
+  private getTranslateYPercentage(): number {
+    return window.innerHeight > 768 ? 85 : 75;
+  }
+
   private onDragMove(e: MouseEvent | TouchEvent) {
     if (!this.isDragging) return;
     e.preventDefault();
@@ -80,14 +90,51 @@ export class CarouselComponent implements AfterViewInit {
     this.currentAngle += angleDiff * this.rotationSpeed;
     this.startAngle = currentAngle;
 
-    this.wheelWrapper.nativeElement.style.transform = `translateY(65%) rotate(${this.currentAngle}deg)`;
+    const translateY = this.getTranslateYPercentage();
+    this.wheelWrapper.nativeElement.style.transform = `translateY(${translateY}%) rotate(${this.currentAngle}deg)`;
   }
 
   private onDragEnd() {
     this.isDragging = false;
   }
-  
-  selectedItem(id: number){
+
+  selectedItem(id: number, event?: Event) {
+    if (event) {
+      event.stopPropagation();
+      event.preventDefault();
+    }
     this.selectedId = id;
+
+    if (this.isTouchDevice && event) {
+      const element = event?.target as HTMLElement;
+      const frame = element.closest('.foto-frame');
+
+      if (frame) {
+        const htmlFrame = frame as HTMLElement;
+        this.renderer.removeClass(frame, 'touch-active');
+        void htmlFrame.offsetWidth;
+        this.renderer.addClass(frame, 'touch-active');
+
+        setTimeout(() => this.renderer.removeClass(htmlFrame, 'touche-active'), 500);
+      }
+    }
+  }
+
+  handleFrameHover(id: number, event: MouseEvent) {
+    if (!this.isTouchDevice) {
+      this.selectedItem(id, event);
+    }
+  }
+
+  handleTouchEnd(event: TouchEvent) {
+    if(this.isTouchDevice){
+      event.preventDefault();
+      const element = event.target as HTMLElement;
+      const frame = element.closest('.foto-frame');
+
+      if(frame){
+        this.renderer.removeClass(frame, 'touch-active');
+      }
+    }
   }
 }

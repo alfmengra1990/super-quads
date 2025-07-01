@@ -10,12 +10,35 @@
     </div>
 
     <div class="navbar-right">
-      <img src="./img/whatsapp.png" alt="User Icon" class="whatsapp-icon">
-      <img src="./img/tiktok.png" alt="User Icon" class="tiktok-icon">
-      <img src="./img/instagram.png" alt="User Icon" class="instagram-icon">
+      <div class="social-icons">
+        <img src="./img/whatsapp.png" alt="User Icon" class="whatsapp-icon">
+        <img src="./img/tiktok.png" alt="User Icon" class="tiktok-icon">
+        <img src="./img/instagram.png" alt="User Icon" class="instagram-icon">
+      </div>
       <button class="booking-button">
         Reservar <i class="arrow fa-solid fa-circle-arrow-right"></i>
       </button>
     </div>
+
+    <!-- Menú de hamburguesa -->
+    <button class="hamburger" [class.active]="menuOpen" (click)="toggleMenu()">
+      <i class="fa-solid fa-bars"></i>
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+  </div>
+
+  <!-- Menú mobile -->
+  <div class="mobile-menu" [class.open]="menuOpen">
+    <a class="mobile-link">Tour</a>
+    <a class="mobile-link">Galería de aventuras</a>
+    <a class="mobile-link">Acerca de</a>
+    <div class="mobile-social-icons">
+      <img src="./img/whatsapp.png" alt="WhatsApp">
+      <img src="./img/tiktok.png" alt="TikTok">
+      <img src="./img/instagram.png" alt="Instagram">
+    </div>
+    <button class="mobile-booking-button">
+      Reservar <i class="fa-solid fa-circle-arrow-right"></i>
+    </button>
   </div>
 </div>
