@@ -17,7 +17,9 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/super-quads",
+            "outputPath": "dist/super-quads/browser",
+            "baseHref": "/",
+            "deployUrl": "/",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
